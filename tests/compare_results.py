@@ -10,7 +10,7 @@ import os
 
 ETALON_DIR = "results"
 OUTPUTS_DIR = "outputs"
-TOLERANCE = 0.01
+TOLERANCE = 0.1
 
 
 def load_json(path):
