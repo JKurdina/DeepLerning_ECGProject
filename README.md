@@ -1,13 +1,12 @@
 # DeepECG Docker
 
-Пайплайн для анализа ЭКГ сигналов с использованием deep learning моделей. Поддерживает классификацию по 77 диагнозам, а также бинарную классификацию риска мерцательной аритмии (AFIB) и сниженной фракции выброса левого желудочка (LVEF).
+Анализ ЭКГ сигналов с использованием deep learning моделей. Поддерживает классификацию по 77 диагнозам, а также бинарную классификацию риска мерцательной аритмии (AFIB) и сниженной фракции выброса левого желудочка (LVEF).
 
 ## Требования
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - [Git](https://git-scm.com/)
-- Аккаунт на [HuggingFace](https://huggingface.co/) с доступом к моделям
-- ~20 ГБ свободного места на диске (модели + образ Docker)
+- HuggingFace API key
 
 ---
 
@@ -21,10 +20,7 @@ cd DeepLerning_ECGProject
 ```
 ### 3. Настройка HuggingFace API ключа
 
-Зарегистрироваться на [huggingface.co](https://huggingface.co) и запросить доступ к моделям:
-[heartwise/DeepECG](https://huggingface.co/collections/heartwise/deepecg-models-66ce09c7d620749ad819fa0d)
-
-Создать Read-токен: `User Settings → Access Tokens → New Token`
+Зарегистрироваться на HuggingFace
 
 Вставить ключ в файл `api_key.json`:
 
