@@ -41,7 +41,16 @@ docker build -t deepecg-docker .
 **Git Bash / macOS / Linux:**
 
 ```bash
-MSYS_NO_PATHCONV=1 docker run -d --name deepecg -v $(pwd)/inputs:/app/inputs -v $(pwd)/outputs:/app/outputs -v $(pwd)/ecg_signals:/app/ecg_signals:ro -v $(pwd)/preprocessing:/app/preprocessing -v $(pwd)/thresholds:/app/thresholds -v $(pwd)/weights:/app/weights deepecg-docker
+MSYS_NO_PATHCONV=1 docker run -d --name deepecg \
+  -v $(pwd)/inputs:/app/inputs \
+  -v $(pwd)/outputs:/app/outputs \
+  -v $(pwd)/ecg_signals:/app/ecg_signals:ro \
+  -v $(pwd)/preprocessing:/app/preprocessing \
+  -v $(pwd)/thresholds:/app/thresholds \
+  -v $(pwd)/weights:/app/weights \
+  -v $(pwd)/results:/app/results \
+  -v $(pwd)/tests:/app/tests \
+  deepecg-docker
 ```
 
 **Windows CMD:**

@@ -1,0 +1,7 @@
+[
+  {
+    "file_name": "dummy_ecg.base64",
+    "ground_truth": "0",
+    "predictions": "0.0004902257"
+  }
+]
