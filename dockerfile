@@ -26,6 +26,11 @@ RUN git clone https://github.com/HeartWise-AI/fairseq-signals && \
 COPY data/ data/
 COPY models/ models/
 COPY utils/ utils/
+COPY thresholds/ thresholds/
+COPY inputs/ inputs/
+COPY tests/ tests/
+COPY ecg_signals/ ecg_signals/
+COPY results/ results/
 COPY api_key.json api_key.json
 COPY heartwise.config heartwise.config
 COPY main.py main.py

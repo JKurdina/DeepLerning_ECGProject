@@ -18,7 +18,8 @@
 git clone https://github.com/JKurdina/DeepLerning_ECGProject.git
 cd DeepLerning_ECGProject
 ```
-### 3. Настройка HuggingFace API ключа
+
+### 2. Настройка HuggingFace API ключа
 
 Зарегистрироваться на HuggingFace
 
@@ -30,13 +31,19 @@ cd DeepLerning_ECGProject
 }
 ```
 
-### 4. Сборка Docker образа
+### 3. Сборка Docker образа
 
 ```bash
 docker build -t deepecg-docker .
 ```
 
-### 5. Запуск контейнера
+> **Как проверить сборку локально без другого компьютера:** после сборки запустите тест внутри образа без каких-либо volume-монтирований. Если тест проходит — образ самодостаточен:
+>
+> ```bash
+> docker run --rm deepecg-docker python tests/test_error_collector.py
+> ```
+
+### 4. Запуск контейнера
 
 **Git Bash / macOS / Linux:**
 
@@ -59,19 +66,19 @@ MSYS_NO_PATHCONV=1 docker run -d --name deepecg \
 docker run -d --name deepecg -v %cd%/inputs:/app/inputs -v %cd%/outputs:/app/outputs -v %cd%/ecg_signals:/app/ecg_signals:ro -v %cd%/preprocessing:/app/preprocessing -v %cd%/thresholds:/app/thresholds -v %cd%/weights:/app/weights -v %cd%/results:/app/results -v %cd%/tests:/app/tests deepecg-docker
 ```
 
-### 6. Подключение к контейнеру
+### 5. Подключение к контейнеру
 
 ```bash
 docker exec -it deepecg bash
 ```
 
-### 7. Исправление line endings (только при первом запуске)
+### 6. Исправление line endings (только при первом запуске)
 
 ```bash
 sed -i 's/\r//' run_pipeline.bash
 ```
 
-### 8. Запуск пайплайна
+### 7. Запуск пайплайна
 
 ```bash
 bash run_pipeline.bash --mode full_run --csv_file_name data_rows_template_npy.csv
@@ -79,7 +86,7 @@ bash run_pipeline.bash --mode full_run --csv_file_name data_rows_template_npy.cs
 
 ---
 
-## 9. Проверка результатов
+## 8. Проверка результатов
 
 В репозитории есть эталонные результаты в папке `results/` и скрипт сравнения `tests/compare_results.py`.
 
@@ -132,6 +139,24 @@ DeepECG — сравнение результатов с эталоном
 | `wcr_afib_5y`, `efficientnetv2_afib_5y` | Риск мерцательной аритмии за 5 лет |
 | `wcr_lvef_under_50`, `efficientnetv2_lvef_under_50` | Фракция выброса < 50% |
 | `wcr_lvef_equal_under_40`, `efficientnetv2_lvef_equal_under_40` | Фракция выброса ≤ 40% |
+
+### Как не скачивать все модели
+
+Модели загружаются с HuggingFace при первом запуске пайплайна, а не при сборке образа. Чтобы ограничить набор загружаемых моделей, отредактируйте `heartwise.config` перед запуском:
+
+```
+use_wcr: True          # WCR-семейство (трансформер)
+use_efficientnet: False # EfficientNetV2-семейство — отключить
+```
+
+Установите `False` для семейства, которое не нужно, — соответствующие модели не будут загружаться.
+
+**Запуск только юнит-тестов (модели не нужны):**
+
+```bash
+# Прямо в образе, без volume-монтирований, без API-ключа
+docker run --rm deepecg-docker python tests/test_error_collector.py
+```
 
 ---
 
