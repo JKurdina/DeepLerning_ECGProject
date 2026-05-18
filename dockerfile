@@ -37,8 +37,8 @@ COPY main.py main.py
 COPY models_setup.py models_setup.py
 COPY run_pipeline.bash run_pipeline.bash
 
-# Make the bash script executable
-RUN chmod +x run_pipeline.bash
+# Make the bash script executable and fix Windows line endings
+RUN sed -i 's/\r//' run_pipeline.bash && chmod +x run_pipeline.bash
 
 # Define an optional build argument
 ARG RUN_MODELS_SETUP=false
