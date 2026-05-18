@@ -27,7 +27,7 @@ cd DeepLerning_ECGProject
 
 ```json
 {
-  "huggingface_api_key": "hf_xxxxxxxxxxxxxxxxx"
+  "HUGGING_FACE_API_KEY": "hf_xxxxxxxxxxxxxxxxx"
 }
 ```
 
@@ -72,13 +72,7 @@ docker run -d --name deepecg -v %cd%/inputs:/app/inputs -v %cd%/outputs:/app/out
 docker exec -it deepecg bash
 ```
 
-### 6. Исправление line endings (только при первом запуске)
-
-```bash
-sed -i 's/\r//' run_pipeline.bash
-```
-
-### 7. Запуск пайплайна
+### 6. Запуск пайплайна
 
 ```bash
 bash run_pipeline.bash --mode full_run --csv_file_name data_rows_template_npy.csv
@@ -86,7 +80,7 @@ bash run_pipeline.bash --mode full_run --csv_file_name data_rows_template_npy.cs
 
 ---
 
-## 8. Проверка результатов
+## 7. Проверка результатов
 
 В репозитории есть эталонные результаты в папке `results/` и скрипт сравнения `tests/compare_results.py`.
 
